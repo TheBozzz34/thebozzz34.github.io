@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Night Sky</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: monospace;
+            white-space: pre;
+            overflow: hidden;
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+            line-height: 1; /* Ensures consistent spacing */
+        }
+        .ascii-tile {
+            white-space: pre;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        async function loadAscii() {
+            try {
+                const response = await fetch('sky.txt'); // Load ASCII from file
+                const text = await response.text();
+
+                // Measure character size dynamically
+                const tempSpan = document.createElement("span");
+                tempSpan.style.fontFamily = "monospace";
+                tempSpan.style.visibility = "hidden";
+                tempSpan.textContent = "A"; // Test character
+                document.body.appendChild(tempSpan);
+                
+                const charWidth = tempSpan.offsetWidth;  // Width of one char
+                const charHeight = tempSpan.offsetHeight; // Height of one char
+                document.body.removeChild(tempSpan); // Clean up
+
+                const asciiWidth = 70 * charWidth; // Full block width
+                const asciiHeight = 80 * charHeight; // Full block height
+                
+                const screenWidth = window.innerWidth;
+                const screenHeight = window.innerHeight;
+
+                const cols = Math.ceil(screenWidth / asciiWidth);
+                const rows = Math.ceil(screenHeight / asciiHeight);
+
+                document.body.innerHTML = ''; // Clear previous content
+
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        let asciiBlock = document.createElement('pre');
+                        asciiBlock.className = 'ascii-tile';
+                        asciiBlock.style.width = `${asciiWidth}px`;
+                        asciiBlock.style.height = `${asciiHeight}px`;
+                        asciiBlock.style.flexShrink = "0"; // Prevent scaling
+                        asciiBlock.textContent = text;
+                        document.body.appendChild(asciiBlock);
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading ASCII:', error);
+            }
+        }
+
+        // Load ASCII on page load
+        window.onload = loadAscii;
+
+        // Reload ASCII when window resizes
+        window.onresize = loadAscii;
+    </script>
+</body>
+</html>

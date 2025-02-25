@@ -1,0 +1,12 @@
+{
+  "addons": {
+    "MEGALinkFinder@necrozma": {
+      "updates": [
+        {
+          "version": "1.0",
+          "update_link": "https://necrozma.xyz/dl/MEGALinkFinder.xpi"
+        }
+      ]
+    }
+  }
+}

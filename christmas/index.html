@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ethan's Christmas Wishlist</title>
+  <!-- Primary Meta Tags -->
+  <title>Ethan's Christmas List</title>
+  <meta name="title" content="Ethan's Christmas List" />
+  <meta name="description"
+    content="View a curated and easy to browse list of everything I'm hoping for this Christmas!" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://necrozma.xyz/christmas" />
+  <meta property="og:title" content="Ethan's Christmas List" />
+  <meta property="og:description"
+    content="View a curated and easy to browse list of everything I'm hoping for this Christmas!" />
+  <meta property="og:image" content="meta.webp" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://necrozma.xyz/christmas/" />
+  <meta property="twitter:title" content="Ethan's Christmas List" />
+  <meta property="twitter:description"
+    content="View a curated and easy to browse list of everything I'm hoping for this Christmas!" />
+  <meta property="twitter:image" content="img/meta.webp" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎄</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="bg-slate-900 text-slate-200 min-h-screen p-5">
+  <header class="text-center mb-8 bg-slate-700 p-4 rounded">
+    <h1 class="text-4xl font-bold border-b-2 pb-2">🎄 Ethan's Christmas Wishlist 🎁</h1>
+    <button onclick="togglePopup()"
+      class="mt-4 bg-green-500 text-slate-900 font-semibold py-2 px-4 rounded hover:bg-green-400">
+      Sign up for email alerts!
+    </button>
+  </header>
+
+  <main class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <!-- Interface -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img
+          src="https://cdn11.bigcommerce.com/s-7exlzlf13h/images/stencil/1280w/products/304/807/scarlett-solo-4g__93789.1711664540.png"
+          alt="Scarlett Solo" class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">Scarlett Solo</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $$
+          </button>
+          <p class="text-sm text-slate-400 mt-2">The songwriter's 2-in, 2-out interface.</p>
+        </div>
+        <a href="https://us.focusrite.com/products/scarlett-solo" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- Mic -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img
+          src="https://edge.rode.com/images/page/1856/modules/4368/R%C3%98DE_NT1_SM6_KIT_3-QUARTER_LEFT_FRONT_1080x1080.png"
+          alt="Rode NT1" class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">Rode NT1</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $$
+          </button>
+          <p class="text-sm text-slate-400 mt-2">A world-class large-diaphragm condenser microphone that marries
+            innovation with tradition, it excels on vocals as well as a wide range of instruments.</p>
+        </div>
+        <a href="https://www.rode.com/nt1" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- arm -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img
+          src="https://edge.rode.com//images/products/variants/286/rode-psa1-plus-white-kit-3-quarter-left-w-s-1-2023-7562%20x%2011332-rgb-2000x2000-724898e.png"
+          alt="Rode PSA1+" class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">Rode PSA1+</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $$
+          </button>
+          <p class="text-sm text-slate-400 mt-2">The PSA1+ is the ultimate studio boom arm for podcasters, streamers and
+            broadcasters.</p>
+        </div>
+        <a href="https://rode.com/en-us/accessories/stands-bars/psa1-plus?srsltid=AfmBOoqNk7IHnslAeGxINgBOny4NjYC1w2r0Q7m2yOWcA4w7zBvNALLs"
+          target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- dac -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img src="img/2023-11-17.16-55-48.jdslabs_atomdac2_front-Photoroom.png"
+          alt="Atom DAC 2" class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">Atom DAC 2</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $$
+          </button>
+          <p class="text-sm text-slate-400 mt-2">Atom 2 is a highly resolving, linear and clean DAC.</p>
+        </div>
+        <a href="https://jdslabs.com/product/atom-dac-2/" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- dac 2 -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img src="https://www.schiit.com/public/upload/images/modius%20black%20front%201920.jpg" alt="Schitt Modius"
+          class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">Schitt Modius</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $$$
+          </button>
+          <p class="text-sm text-slate-400 mt-2">A bigger, balanced-output Modi with super-high performance—and even
+            better versatility. </p>
+        </div>
+        <a href="https://www.schiit.com/products/modius" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- madvilliany -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img src="https://cdn.shopify.com/s/files/1/0043/7105/4710/products/Madvillainy-1080_800x.jpg" alt="Madvillainy"
+          class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">Madvillainy Vinyl</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $
+          </button>
+          <p class="text-sm text-slate-400 mt-2">Turning the formula of popular rap at the time on its head with an
+            album that is both unique and true to its influences.</p>
+        </div>
+        <a href="https://www.stonesthrow.com/store/madvillainy/" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- monitors -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img src="https://www.adam-audio.com/content/uploads/2023/04/adam-audio-t5v-studio-monitor-header-768x1047.png"
+          alt="T5V" class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">T5V</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $$$$
+          </button>
+          <p class="text-sm text-slate-400 mt-2">The T5V is a highly affordable two-way nearfield monitor and optimized
+            for small control rooms.</p>
+        </div>
+        <a href="https://www.adam-audio.com/en/t-series/t5v/" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- Jacket -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img src="img/65869_990-1-onbody1-Photoroom.png" alt="Men’s Swift Infinity Insulated Ski Jacket"
+          class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">Men’s Swift Infinity Insulated Ski Jacket</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $$$
+          </button>
+          <p class="text-sm text-slate-400 mt-2">This sleek, professional-grade ski jacket delivers weather protection
+            and the ultimate freedom of movement during long days on-piste.</p>
+        </div>
+        <a href="https://www.hellyhansen.com/en_us/swift-infinity-jacket-65869?color=290002" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- iem cable -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img
+          src="https://i5.walmartimages.com/asr/10dc37d0-f4ac-475f-976e-30c574091fc7.82f4e59487453bdb4668004654492cf2.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF"
+          alt="Tripowin Amber" class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">Tripowin Amber MMCX</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $
+          </button>
+          <p class="text-sm text-slate-400 mt-2">The Tripowin Amber interconnect cable is an idealized replacement cable
+            that has benefits of high-end audiophile sound and durability.</p>
+        </div>
+        <a href="https://www.linsoul.com/products/tripowin-amber?variant=43531290149081" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- tube amp -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img src="img/vali 3 blk front 1920-Photoroom.png" alt="Vali 3" class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">Schitt Vali 3</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $$
+          </button>
+          <p class="text-sm text-slate-400 mt-2">Vali 3, the new standard in affordable tube gear.</p>
+        </div>
+        <a href="https://www.schiit.com/products/vali3" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- phonmo preamp -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img src="img/Phono-Box-S2-3-Photoroom.png" alt="Phono Box S2" class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">Phono Box S2</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $$$
+          </button>
+          <p class="text-sm text-slate-400 mt-2">Unrivalled sonics and versitality at a very affordable price.</p>
+        </div>
+        <a href="https://www.project-audio.com/en/product/phono-box-s2/" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- black on both sides -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img
+          src="https://interscope.com/cdn/shop/files/MosDef-BlackOnBothSidesVinyl2LP.png?v=1706125289&width=800"
+          alt="Mos Def - Black On Both Sides Vinyl 2LP" class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">Mos Def - Black On Both Sides Vinyl 2LP</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $
+          </button>
+          <p class="text-sm text-slate-400 mt-2">The debut solo studio album by American rapper Mos Def, released on October 12, 1999, by Rawkus and Priority Records.</p>
+        </div>
+        <a href="https://interscope.com/products/mos-def-black-on-both-sides-vinyl-2lp" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- turntable -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img
+          src="https://www.fluance.com/media/catalog/product/cache/eaf9201cb9a6526c85e3e4abbda3f987/1/-/1-rt82t-main-v2.jpg"
+          alt="RT82 Reference High Fidelity Vinyl Turntable" class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">RT82 Reference High Fidelity Vinyl Turntable</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $$$$
+          </button>
+          <p class="text-sm text-slate-400 mt-2">Record Player with Ortofon OM 10 Cartridge, Speed Control Motor, High Mass MDF Wood Plinth, Vibration Isolation Feet</p>
+        </div>
+        <a href="https://www.fluance.com/rt82t-reference-high-fidelity-vinyl-turntable-black-gloss" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+    <!-- focal strap -->
+    <div class="bg-slate-800 rounded-lg shadow-lg flex flex-col h-full">
+      <div class="flex justify-center items-center p-4">
+        <img
+          src="https://capraaudio.com/wp-content/uploads/2024/07/il_fullxfull.6060167484_1v2c-scaled.avif"
+          alt="Focal Bathys/Hadenys/Azurys Comfort Strap" class="max-w-full max-h-48 object-contain">
+      </div>
+      <div class="flex-grow p-4 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-bold">Focal Bathys/Hadenys/Azurys Comfort Strap</h2>
+          <button class="float-end text-red-400 text-xl font-bold">
+            $
+          </button>
+          <p class="text-sm text-slate-400 mt-2">This Comfort Strap is designed for the Focal series of headphones with the newer smaller headband. This should fit on the Focal Bathys, Hadenys, and Azurys.</p>
+        </div>
+        <a href="https://capraaudio.com/product/focal-bathys-hadenys-azurys-comfort-strap/" target="_blank"
+          class="block mt-4 text-center bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          View Product
+        </a>
+      </div>
+    </div>
+  </main>
+  <div id="emailPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div class="bg-slate-800 text-slate-200 rounded-lg shadow-lg p-6 w-full max-w-md">
+      <button onclick="togglePopup()" class="float-end text-slate-400 hover:text-slate-200 text-xl font-bold">
+        &times;
+      </button>
+      <button onclick="togglePopup()"
+        class="absolute top-4 right-4 text-slate-400 hover:text-slate-200">&times;</button>
+      <h2 class="text-xl font-bold mb-4">Never miss a new product!</h2>
+      <form onsubmit="submitForm(event)">
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium mb-1">Email Address</label>
+          <input type="email" id="email" name="email" required class="w-full bg-slate-700 text-slate-200 rounded p-2">
+        </div>
+        <div class="mb-4">
+          <label for="firstName" class="block text-sm font-medium mb-1">First Name</label>
+          <input type="text" id="firstName" name="firstName" required
+            class="w-full bg-slate-700 text-slate-200 rounded p-2">
+        </div>
+        <div class="mb-4">
+          <label for="lastName" class="block text-sm font-medium mb-1">Last Name</label>
+          <input type="text" id="lastName" name="lastName" required
+            class="w-full bg-slate-700 text-slate-200 rounded p-2">
+        </div>
+        <button type="submit" class="w-full bg-green-500 text-slate-900 font-semibold py-2 rounded hover:bg-green-400">
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </div>
+  <footer class="text-center mt-8 bg-slate-700 p-4 rounded">
+    <h1 class="text-1xl font-bold">
+      Designed with ❤️ by <a class="text-sky-400" href="/">Ethan</a> using
+      <a class="text-sky-400" href="https://tailwindcss.com/"> Tailwind
+      </a>
+    </h1>
+  </footer>
+  <script src="js/script.js"></script>
+</body>
+</html>

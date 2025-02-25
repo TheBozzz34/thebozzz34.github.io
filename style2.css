@@ -1,0 +1,173 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #e9e9e9;
+    color: #CF6679;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.imgbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.center-fit {
+    max-width: 60%;
+    max-height: 100vh;
+}
+
+.text-box {
+    background-color: #1E1E1E;
+    color: #CF6679;
+    margin-top: -20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.text-box a {
+    color: inherit;
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.2s ease-in-out;
+}
+
+.text-box a:hover {
+    transform: scale(1.1);
+}
+
+.text {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin: 5px 0;
+}
+
+.scrobble-widget, .project-widget {
+    background-color: #1E1E1E;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative; /* Remove absolute positioning */
+}
+/*
+.scrobble-widget {
+    background-color: #1E1E1E;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+*/
+.scrobble, .project {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.scrobble:hover, .project:hover {
+    transform: scale(1.02);
+}
+
+.scrobble img, .project img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.scrobble-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.scrobble-details a {
+    color: #CF6679;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.scrobble-details a:hover {
+    text-decoration: underline;
+}
+
+.scrobble-details span {
+    font-size: 0.9em;
+    color: #A0A0A0;
+}
+
+.record-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    background-image: url('https://mediamaniaonline.com/wp-content/uploads/2019/05/cropped-vinyl-icon-black-33.png'); /* Replace with the URL of your record icon */
+    background-size: cover;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.widget-container, .project-widget-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the content horizontally */
+    margin-top: 20px; /* Space above the container */
+    
+}
+
+.widget-title, .project-widget-title {
+    background-color: #1E1E1E;
+    text-align: center;
+    color: #CF6679; /* Match the color with the rest of the design */
+    margin-bottom: 10px; /* Space between the title and the widget */
+    font-size: 1.5em; /* Adjust font size as needed */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 20px;
+    width: 88%;
+}
+
+.project-image {
+    width: 100%;
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  width: 30%;
+  margin-top: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+  background-color: #1E1E1E;
+  color: #CF6679;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+}

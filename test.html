@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII Night Sky</title>
+    <style>
+        body {
+  background-color: #121212;
+  margin: 0;
+  font-family: arial;
+  overflow: hidden;
+}
+
+p {
+  margin: 0;
+  font-size: 24px;
+}
+
+.star {
+  position: absolute;
+  animation-name: twinkle;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  user-select: none; 
+}
+
+@keyframes twinkle {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(0.3);
+    }
+}
+    </style>
+</head>
+<body>
+    <script>
+        function getStarIcon() {
+            const chance = Math.random();
+            const starDistribution = [
+                [0.05, '•'],
+                [0.2, '*'],
+                [1, '.']
+            ];
+            return starDistribution.find(dist => chance < dist[0])[1];
+        }
+
+        function getColor() {
+            const chance = Math.random();
+            const colorDistribution = [
+                [0.2, '#cf667a'],
+                [0.4, '#cf66ae'],
+                [1, '#cf6679']
+            ];
+            return colorDistribution.find(dist => chance < dist[0])[1];
+        }
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        function createStar() {
+            const star = document.createElement('p');
+            star.innerHTML = getStarIcon();
+            star.className += 'star';
+            star.style.top = `${getRandomInt(0, window.innerHeight)}px`;
+            star.style.left = `${getRandomInt(0, window.innerWidth)}px`;
+            star.style.color = getColor();
+            star.style['animation-delay'] = `${getRandomInt(0, 5)}s`;
+            star.style['animation-duration'] = `${getRandomInt(2, 4)}s`;
+            document.body.appendChild(star);
+        }
+
+        const starCount = 100;
+        for (let i = 0; i < starCount; i++) {
+            createStar();
+        }
+    </script>
+</body>
+</html>

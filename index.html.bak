@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="My personal site">
+    <meta name="author" content="necrozma">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://necrozma.xyz/" />
+    <meta property="og:title" content="necrozma" />
+    <meta property="og:description" content="My personal site" />
+    <meta property="og:image" content="https://necrozma.xyz/104.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://necrozma.xyz/" />
+    <meta property="twitter:title" content="necrozma" />
+    <meta property="twitter:description" content="My personal site" />
+    <meta property="twitter:image" content="https://necrozma.xyz/104.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <title>necrozma</title>
+    <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Necrozma" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+    <div class="header">
+        <span class="header-text">necrozma.</span>
+    </div>
+    <div class="project-widget-container">
+        <h2 class="project-widget-title">GitHub Stats</h2>
+        <div class="project-widget" id="project-widget">
+            <img class="project-image" src="https://github-readme-stats.vercel.app/api?username=thebozzz34&theme=synthwave&show_icons=true&hide_border=true&count_private=true">
+            <img class="project-image" src="https://github-readme-streak-stats.herokuapp.com/?user=thebozzz34&theme=synthwave&hide_border=true">
+            <img class="project-image" src="https://github-readme-stats.vercel.app/api/top-langs/?username=thebozzz34&theme=synthwave&show_icons=true&hide_border=true&layout=compact">
+        </div>
+    </div>
+    <div class="imgbox">
+        <img class="center-fit" src='https://assets.pokemon.com/assets/cms2/img/pokedex/full//104.png'>
+        <div class="text-box inter-text">
+            <span class="text">
+                <a href="mailto:ethan@necrozma.xyz">
+                    <i class="fa-solid fa-envelope"></i> ethan@necrozma.xyz
+                </a>
+            </span>
+            <span class="text">
+                <a href="https://github.com/thebozzz34" target="_blank">
+                    <i class="fa-brands fa-github"></i> thebozzz
+                </a>
+            </span>
+            <span class="text">
+                <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/0951795ECB2C6DFD86DF2F7BF2FE38E55D832A82">
+                    <i class="fa-solid fa-lock"></i> 0951795ECB2C6DFD86DF2F7BF2FE38E55D832A82
+                </a>
+            </span>
+            <span class="text">
+                <a href="https://instagram.com/k._eturah" target="_blank">
+                    <i class="fa-brands fa-instagram"></i> k._eturah
+                </a>
+            </span>
+        </div>
+    </div>
+    <div class="widget-container">
+        <h2 class="widget-title">Recent Scrobbles</h2>
+        <div class="scrobble-widget" id="scrobble-widget">
+            <!-- Scrobble entries will be injected here by JavaScript -->
+        </div>
+    </div>
+    <script src="index.js"></script>
+    <script src="https://kit.fontawesome.com/06cbfde780.js" crossorigin="anonymous"></script>
+</body>
+</html>
