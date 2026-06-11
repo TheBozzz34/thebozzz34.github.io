@@ -1,81 +1,412 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="My personal site">
-    <meta name="author" content="necrozma">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://necrozma.xyz/" />
-    <meta property="og:title" content="necrozma" />
-    <meta property="og:description" content="My personal site" />
-    <meta property="og:image" content="https://necrozma.xyz/104.png" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PSClean — PowerSchool contact deduplication</title>
+<meta name="description" content="PSClean finds and merges duplicate PowerSchool contact records, lets you review ambiguous matches, and exports a corrected file ready for direct PSSIS import." />
+<link rel="icon" type="image/svg+xml" href="icon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #002855;
+    --navy-deep: #001a3a;
+    --orange: #f47b20;
+    --orange-soft: #ff9a4d;
+    --ink: #11243d;
+    --muted: #5b6b7e;
+    --line: #e2e8f0;
+    --bg: #f6f8fb;
+    --card: #ffffff;
+    --radius: 16px;
+    --shadow: 0 10px 30px rgba(0, 40, 85, 0.08);
+    --shadow-lg: 0 24px 60px rgba(0, 40, 85, 0.16);
+  }
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://necrozma.xyz/" />
-    <meta property="twitter:title" content="necrozma" />
-    <meta property="twitter:description" content="My personal site" />
-    <meta property="twitter:image" content="https://necrozma.xyz/104.png" />
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <title>necrozma</title>
-    <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Necrozma" />
-    <link rel="manifest" href="/site.webmanifest" />
-    <link rel="stylesheet" href="/style.css" />
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Nav ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.15rem; color: var(--navy); }
+  .brand svg { width: 34px; height: 34px; border-radius: 9px; box-shadow: 0 3px 10px rgba(0,40,85,.18); }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a { color: var(--muted); font-weight: 500; font-size: .95rem; transition: color .15s; }
+  .nav-links a:hover { color: var(--navy); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 20px; border-radius: 10px; font-weight: 600; font-size: .95rem;
+    transition: transform .12s, box-shadow .2s, background .2s; cursor: pointer; border: none;
+  }
+  .btn-primary { background: var(--orange); color: #fff; box-shadow: 0 6px 18px rgba(244,123,32,.35); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(244,123,32,.45); }
+  .btn-ghost { background: transparent; color: var(--navy); border: 1px solid var(--line); }
+  .btn-ghost:hover { border-color: var(--navy); }
+  @media (max-width: 720px) { .nav-links a:not(.btn) { display: none; } }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(1200px 500px at 80% -10%, rgba(244,123,32,.18), transparent 60%),
+      linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: #fff; padding: 96px 0 110px;
+  }
+  .hero::after {
+    content: ""; position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 26px 26px; pointer-events: none;
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+    padding: 6px 14px; border-radius: 999px; font-size: .82rem; font-weight: 500; color: #d6e2f0;
+  }
+  .pill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange-soft); }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.08; font-weight: 800; margin: 22px 0 18px; letter-spacing: -.02em; }
+  .hero h1 .accent { color: var(--orange-soft); }
+  .hero p.lead { font-size: clamp(1.05rem, 2vw, 1.25rem); color: #c4d3e6; max-width: 620px; }
+  .hero-actions { display: flex; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
+  .btn-light { background: #fff; color: var(--navy); }
+  .btn-light:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+  .btn-outline { background: rgba(255,255,255,.06); color: #fff; border: 1px solid rgba(255,255,255,.25); }
+  .btn-outline:hover { background: rgba(255,255,255,.14); }
+
+  .hero-stats { display: flex; gap: 38px; margin-top: 56px; flex-wrap: wrap; }
+  .stat .n { font-size: 1.7rem; font-weight: 800; color: #fff; }
+  .stat .l { font-size: .85rem; color: #9fb4cd; }
+
+  /* ---------- Sections ---------- */
+  section { padding: 88px 0; }
+  .eyebrow { color: var(--orange); font-weight: 700; font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; }
+  .section-title { font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; letter-spacing: -.02em; margin: 10px 0 14px; color: var(--navy); }
+  .section-sub { color: var(--muted); max-width: 640px; font-size: 1.05rem; }
+
+  /* ---------- Features grid ---------- */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 48px; }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 28px; box-shadow: var(--shadow); transition: transform .18s, box-shadow .25s, border-color .2s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: #cdd9e8; }
+  .ic {
+    width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--navy), #0a3a73); color: #fff; margin-bottom: 18px;
+  }
+  .ic svg { width: 24px; height: 24px; }
+  .card h3 { font-size: 1.12rem; color: var(--navy); margin-bottom: 8px; }
+  .card p { color: var(--muted); font-size: .96rem; }
+
+  /* ---------- Workflow ---------- */
+  .workflow { background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+  .step { position: relative; padding: 28px; border-radius: var(--radius); background: var(--bg); border: 1px solid var(--line); }
+  .step .num {
+    width: 40px; height: 40px; border-radius: 11px; background: var(--orange); color: #fff;
+    font-weight: 800; display: grid; place-items: center; font-size: 1.1rem; margin-bottom: 16px;
+    box-shadow: 0 6px 16px rgba(244,123,32,.3);
+  }
+  .step h3 { color: var(--navy); font-size: 1.1rem; margin-bottom: 8px; }
+  .step p { color: var(--muted); font-size: .95rem; }
+
+  /* ---------- Output table ---------- */
+  .files { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 44px; }
+  @media (max-width: 720px) { .files { grid-template-columns: 1fr; } }
+  .file-row {
+    display: flex; align-items: flex-start; gap: 14px; background: var(--card);
+    border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; box-shadow: var(--shadow);
+  }
+  .file-row code {
+    font-family: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace; font-size: .85rem;
+    background: #eef3f9; color: var(--navy); padding: 3px 8px; border-radius: 6px; font-weight: 600; white-space: nowrap;
+  }
+  .file-row p { color: var(--muted); font-size: .9rem; margin-top: 4px; }
+  .file-row .tag-prim { color: var(--orange); font-weight: 700; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; }
+
+  /* ---------- Security ---------- */
+  .security { background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%); color: #fff; }
+  .security .section-title { color: #fff; }
+  .sec-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; margin-top: 44px; }
+  @media (max-width: 860px) { .sec-grid { grid-template-columns: 1fr; } }
+  .sec-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+  .sec-list li { display: flex; gap: 14px; }
+  .sec-list .check {
+    flex: none; width: 26px; height: 26px; border-radius: 8px; background: rgba(244,123,32,.2);
+    display: grid; place-items: center; color: var(--orange-soft);
+  }
+  .sec-list h4 { font-size: 1rem; margin-bottom: 2px; }
+  .sec-list p { color: #b8c9de; font-size: .92rem; }
+  .codebox {
+    background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.12); border-radius: 14px;
+    padding: 22px; font-family: 'SFMono-Regular', ui-monospace, Consolas, monospace; font-size: .82rem;
+    color: #cfe0f2; line-height: 1.8; overflow-x: auto;
+  }
+  .codebox .c { color: #7f97b3; }
+  .codebox .o { color: var(--orange-soft); }
+
+  /* ---------- CTA ---------- */
+  .cta { text-align: center; }
+  .cta-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 22px;
+    padding: 56px 32px; box-shadow: var(--shadow-lg); max-width: 760px; margin: 0 auto;
+  }
+  .cta-card h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--navy); margin-bottom: 12px; }
+  .cta-card p { color: var(--muted); margin-bottom: 28px; }
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--navy-deep); color: #9fb4cd; padding: 44px 0; }
+  .foot { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .foot .brand { color: #fff; font-size: 1rem; }
+  .foot small { font-size: .82rem; line-height: 1.6; display: block; }
+  .foot a { color: var(--orange-soft); }
+</style>
 </head>
 <body>
 
-    <div class="header">
-        <span class="header-text">necrozma.</span>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="256" height="256" rx="52" fill="#002855"/>
+        <circle cx="90" cy="88" r="36" fill="white" opacity="0.22"/>
+        <path d="M14 204 Q14 142 90 142 Q124 142 146 157 L146 204 Z" fill="white" opacity="0.22"/>
+        <circle cx="158" cy="88" r="42" fill="#F47B20"/>
+        <path d="M74 216 Q74 150 158 150 Q242 150 242 216 Z" fill="#F47B20"/>
+        <polyline points="134,88 150,106 184,68" fill="none" stroke="white" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      PSClean
+    </a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#workflow">How it works</a>
+      <a href="#output">Output</a>
+      <a href="#security">Security</a>
+      <a class="btn btn-primary" href="https://github.com/TheBozzz34/PSClean/releases/latest">Download</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="pill"><span class="dot"></span> For PowerSchool SIS administrators</span>
+      <h1>Clean up duplicate contacts <span class="accent">before</span> they reach PowerSchool.</h1>
+      <p class="lead">PSClean scans your contacts export, automatically merges high-confidence duplicates, queues the ambiguous ones for human review, and writes a corrected file ready for direct PSSIS import.</p>
+      <div class="hero-actions">
+        <a class="btn btn-light" href="https://github.com/TheBozzz34/PSClean/releases/latest">⬇ Download for Windows</a>
+        <a class="btn btn-outline" href="#workflow">See how it works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="n">1-click</div><div class="l">Automatic deduplication</div></div>
+        <div class="stat"><div class="n">Human-in-the-loop</div><div class="l">Review every ambiguous match</div></div>
+        <div class="stat"><div class="n">PSSIS-ready</div><div class="l">Import straight back in</div></div>
+      </div>
     </div>
-    <div class="project-widget-container">
-        <h2 class="project-widget-title">GitHub Stats</h2>
-        <div class="project-widget" id="project-widget">
-            <img class="project-image" src="https://github-readme-stats.vercel.app/api?username=thebozzz34&theme=synthwave&show_icons=true&hide_border=true&count_private=true">
-            <img class="project-image" src="https://github-readme-streak-stats.herokuapp.com/?user=thebozzz34&theme=synthwave&hide_border=true">
-            <img class="project-image" src="https://github-readme-stats.vercel.app/api/top-langs/?username=thebozzz34&theme=synthwave&show_icons=true&hide_border=true&layout=compact">
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="wrap">
+      <span class="eyebrow">What it does</span>
+      <h2 class="section-title">Built for messy contact exports</h2>
+      <p class="section-sub">PSClean handles the tedious, error-prone parts of contact cleanup so you can focus on the judgment calls that actually need a person.</p>
+
+      <div class="grid">
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+          <h3>Smart duplicate detection</h3>
+          <p>Identifies matching contacts across your export and clusters related records into duplicate groups.</p>
         </div>
-    </div>
-    <div class="imgbox">
-        <img class="center-fit" src='104-2.png'>
-        <div class="text-box inter-text">
-            <span class="text">
-                <a href="mailto:ethan@necrozma.xyz">
-                    <i class="fa-solid fa-envelope"></i> ethan@necrozma.xyz
-                </a>
-            </span>
-            <span class="text">
-                <a href="https://github.com/thebozzz34" target="_blank">
-                    <i class="fa-brands fa-github"></i> thebozzz
-                </a>
-            </span>
-            <span class="text">
-                <a href="https://keys.openpgp.org/vks/v1/by-fingerprint/0951795ECB2C6DFD86DF2F7BF2FE38E55D832A82">
-                    <i class="fa-solid fa-lock"></i> 0951795ECB2C6DFD86DF2F7BF2FE38E55D832A82
-                </a>
-            </span>
-            <span class="text">
-                <a href="https://instagram.com/k._eturah" target="_blank">
-                    <i class="fa-brands fa-instagram"></i> k._eturah
-                </a>
-            </span>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></div>
+          <h3>Auto-merge with confidence</h3>
+          <p>High-confidence duplicates are merged automatically, while uncertain pairs are flagged for your review.</p>
         </div>
-    </div>
-    <div class="widget-container">
-        <h2 class="widget-title">Recent Scrobbles</h2>
-        <div class="scrobble-widget" id="scrobble-widget">
-            <!-- Scrobble entries will be injected here by JavaScript -->
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 9h8M8 13h5"/></svg></div>
+          <h3>Review queue</h3>
+          <p>Work through flagged pairs one at a time — merge, skip, reject, or edit the merged result before export.</p>
         </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></div>
+          <h3>Manual edit dialog</h3>
+          <p>Adjust phone types, drop duplicate entries, or add missing emails and addresses before a record goes back in.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg></div>
+          <h3>Guardian reference lookup</h3>
+          <p>Open a side-by-side Guardian Info window (great on a second monitor) to verify details while you review.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></div>
+          <h3>Direct PowerSchool API</h3>
+          <p>Pull contacts straight from PowerSchool over OAuth2, or work from a CSV export — your choice.</p>
+        </div>
+      </div>
     </div>
-    <script src="index.js"></script>
-    <script src="https://kit.fontawesome.com/06cbfde780.js" crossorigin="anonymous"></script>
+  </section>
+
+  <!-- WORKFLOW -->
+  <section id="workflow" class="workflow">
+    <div class="wrap">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title">Three steps, start to import</h2>
+      <p class="section-sub">From a raw export to a clean, import-ready file — with a human checkpoint in the middle.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <h3>Process</h3>
+          <p>Load your PowerSchool contacts export (or pull from the API), pick an output folder, and run deduplication. PSClean merges the obvious duplicates and queues the rest.</p>
+        </div>
+        <div class="step">
+          <div class="num">2</div>
+          <h3>Review</h3>
+          <p>Each row is a flagged pair. Merge it, approve a whole duplicate cluster at once, skip, reject, or open the editor to fine-tune the merged contact.</p>
+        </div>
+        <div class="step">
+          <div class="num">3</div>
+          <h3>Export &amp; import</h3>
+          <p>Write the result files and load <code>import_ready.csv</code> through <em>System → Page &amp; Data Management → Import &amp; Export Data → Contacts</em>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTPUT -->
+  <section id="output">
+    <div class="wrap">
+      <span class="eyebrow">What you get</span>
+      <h2 class="section-title">Five files on every export</h2>
+      <p class="section-sub">Rows with a populated <code>ID</code> update existing records; rows with only an <code>Identifier</code> create new ones.</p>
+
+      <div class="files">
+        <div class="file-row">
+          <div>
+            <span class="tag-prim">Import this</span><br/>
+            <code>import_ready.csv</code>
+            <p>PSSIS import format — load this directly into PowerSchool.</p>
+          </div>
+        </div>
+        <div class="file-row">
+          <div>
+            <code>deduped.csv</code>
+            <p>Cleaned contacts in the original export format.</p>
+          </div>
+        </div>
+        <div class="file-row">
+          <div>
+            <code>contacts_flat.csv</code>
+            <p>One row per contact, with all fields flattened.</p>
+          </div>
+        </div>
+        <div class="file-row">
+          <div>
+            <code>merge_report.csv</code>
+            <p>A log of every merge decision that was made.</p>
+          </div>
+        </div>
+        <div class="file-row">
+          <div>
+            <code>review_queue.csv</code>
+            <p>All flagged pairs and their final outcomes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY -->
+  <section id="security" class="security">
+    <div class="wrap">
+      <span class="eyebrow" style="color:var(--orange-soft)">Credentials &amp; security</span>
+      <h2 class="section-title">Your secrets stay on your machine</h2>
+      <p class="section-sub" style="color:#b8c9de">When connecting to the PowerSchool API, PSClean never writes your client secret to disk in plaintext.</p>
+
+      <div class="sec-grid">
+        <ul class="sec-list">
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <div><h4>Encrypted with Windows DPAPI</h4><p>If you choose "Remember on this PC", credentials are encrypted with the Windows Data Protection API and saved to <code>%APPDATA%\PSClean</code>.</p></div>
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <div><h4>Tied to your account</h4><p>DPAPI binds the ciphertext to your Windows user on that machine — only the same user on the same PC can decrypt it.</p></div>
+          </li>
+          <li>
+            <span class="check"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <div><h4>Enter once, forget anytime</h4><p>Later launches reload automatically. Use "Forget saved" or "Disconnect" to clear stored or in-memory credentials.</p></div>
+          </li>
+        </ul>
+
+        <div class="codebox">
+<span class="c"># OAuth2 client_credentials flow</span><br/>
+App  <span class="o">--client_id/secret--></span>  PowerSchool<br/>
+     <span class="o"><----OAuth token------</span><br/>
+App  <span class="o">--Bearer token + request--></span>  PowerSchool<br/><br/>
+<span class="c"># Stored, encrypted, on your PC only</span><br/>
+%APPDATA%\PSClean\credentials.dat
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="wrap">
+      <div class="cta-card">
+        <h2>Ready to clean up your contacts?</h2>
+        <p>Download the Windows installer, or grab the portable build and run it with no install.</p>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="https://github.com/TheBozzz34/PSClean/releases/latest">⬇ Download PSCleanSetup.exe</a>
+          <a class="btn btn-ghost" href="https://github.com/TheBozzz34/PSClean">View on GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div>
+      <div class="brand">PSClean</div>
+      <small>PowerSchool contact deduplication for SIS administrators.</small>
+    </div>
+    <div style="text-align:right">
+      <small>Requires Windows · Python 3.10+ &amp; PyQt6 to build from source</small>
+      <small>Proprietary &amp; Confidential. Copyright © 2026 Ethan James. All rights reserved.</small>
+      <small><a href="https://github.com/TheBozzz34/PSClean">GitHub</a> · <a href="https://github.com/TheBozzz34/PSClean/releases/latest">Releases</a></small>
+    </div>
+  </div>
+</footer>
+
 </body>
 </html>

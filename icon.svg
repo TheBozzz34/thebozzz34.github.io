@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+
+  <!-- Background: PowerSchool navy -->
+  <rect width="256" height="256" rx="52" fill="#002855"/>
+
+  <!-- Ghost contact (duplicate being absorbed — faded white) -->
+  <circle cx="90" cy="88" r="36" fill="white" opacity="0.22"/>
+  <path d="M14 204 Q14 142 90 142 Q124 142 146 157 L146 204 Z"
+        fill="white" opacity="0.22"/>
+
+  <!-- Primary / survivor contact — PowerSchool orange -->
+  <circle cx="158" cy="88" r="42" fill="#F47B20"/>
+  <path d="M74 216 Q74 150 158 150 Q242 150 242 216 Z" fill="#F47B20"/>
+
+  <!-- Checkmark on the survivor -->
+  <polyline points="134,88 150,106 184,68"
+            fill="none" stroke="white" stroke-width="11"
+            stroke-linecap="round" stroke-linejoin="round"/>
+
+</svg>
