@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>PSClean — PowerSchool contact deduplication</title>
-<meta name="description" content="PSClean finds and merges duplicate PowerSchool contact records, lets you review ambiguous matches, and exports a corrected file ready for direct PSSIS import." />
+<meta name="description" content="PSClean finds and merges duplicate PowerSchool contact records, lets you review ambiguous matches, and allows for committing directly to PSSIS" />
 <link rel="icon" type="image/svg+xml" href="icon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -217,8 +217,8 @@
   <section class="hero">
     <div class="wrap">
       <span class="pill"><span class="dot"></span> For PowerSchool SIS administrators</span>
-      <h1>Clean up duplicate contacts <span class="accent">before</span> they reach PowerSchool.</h1>
-      <p class="lead">PSClean scans your contacts export, automatically merges high-confidence duplicates, queues the ambiguous ones for human review, and writes a corrected file ready for direct PSSIS import.</p>
+      <h1>Clean up duplicate contacts they reach PowerSchool.</h1>
+      <p class="lead">PSClean downloads your contacts, automatically merges high-confidence duplicates, and queues the ambiguous ones for human review.</p>
       <div class="hero-actions">
         <a class="btn btn-light" href="https://github.com/TheBozzz34/PSClean/releases/latest">⬇ Download for Windows</a>
         <a class="btn btn-outline" href="#workflow">See how it works</a>
@@ -284,7 +284,7 @@
         <div class="step">
           <div class="num">1</div>
           <h3>Process</h3>
-          <p>Load your PowerSchool contacts export (or pull from the API), pick an output folder, and run deduplication. PSClean merges the obvious duplicates and queues the rest.</p>
+          <p>Load your PowerSchool contacts, weight automatically via the API or via a csv export, pick an output folder, and run deduplication. PSClean merges the obvious duplicates and queues the rest.</p>
         </div>
         <div class="step">
           <div class="num">2</div>
@@ -294,7 +294,7 @@
         <div class="step">
           <div class="num">3</div>
           <h3>Export &amp; import</h3>
-          <p>Write the result files and load <code>import_ready.csv</code> through <em>System → Page &amp; Data Management → Import &amp; Export Data → Contacts</em>.</p>
+          <p>Press one button to commit to Powerschool, or write the result files and load <code>import_ready.csv</code> through <em>System → Page &amp; Data Management → Import &amp; Export Data → Contacts</em>.</p>
         </div>
       </div>
     </div>
@@ -401,7 +401,6 @@ App  <span class="o">--Bearer token + request--></span>  PowerSchool<br/><br/>
       <small>PowerSchool contact deduplication for SIS administrators.</small>
     </div>
     <div style="text-align:right">
-      <small>Requires Windows · Python 3.10+ &amp; PyQt6 to build from source</small>
       <small>Proprietary &amp; Confidential. Copyright © 2026 Ethan James. All rights reserved.</small>
       <small><a href="https://github.com/TheBozzz34/PSClean">GitHub</a> · <a href="https://github.com/TheBozzz34/PSClean/releases/latest">Releases</a></small>
     </div>
